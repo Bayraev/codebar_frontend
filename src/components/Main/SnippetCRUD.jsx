@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import CodeMirror from '@uiw/react-codemirror';
 
 import './SnippetCRUD.scss';
 import styles from './SnippetCRUD.module.scss';
+import CodemirrorField from '../CodemirrorField';
 
 const SnippetCRUD = () => {
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState('<p>Hello world!</p>');
 
   const options = {
     mode: 'jsx',
@@ -29,7 +29,7 @@ const SnippetCRUD = () => {
       </div>
 
       {/* chatGPT, write your code  */}
-      <CodeMirror value={code} onChange={(value) => setCode(value)} options={options} />
+      <CodemirrorField options={options} code={code} setCode={setCode} />
     </div>
   );
 };
