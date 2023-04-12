@@ -1,0 +1,62 @@
+.snippets_wrapper {
+
+    .flex {
+        position: relative;
+        top: 40px;
+        left: 55.5%;
+        width: 70px;
+
+        .icon50x50 {
+            width: 30px;
+            height: 30px;
+        }
+    }
+
+    form {
+        display: flex;
+        margin-bottom: 60px;
+
+
+
+        
+
+
+        
+    }
+
+    .rendering_div {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-column-gap: 35px;
+        grid-row-gap: 35px;
+        
+        .rendered_item {
+            word-break: break-all;
+            // width: 25%;
+            min-height: 300px;
+            padding: 0 35px 35px 35px;
+            background-color: #4E4E4E;
+            color: white;
+            h3 {
+                font-size: medium;
+                font-weight: 400;
+                font-size: 40px;
+                line-height: 50px;
+
+            }
+            span {
+                font-family: 'Kreon';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 22px;
+                line-height: 38px;
+            }
+            // .code_popup {
+                
+            //     align-items: end;
+                
+            // }
+        }
+    }
+}

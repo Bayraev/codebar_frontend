@@ -1,0 +1,23 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    span {
+        font-family: 'Kreon';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 63px;
+        line-height: 79px;
+
+    }
+
+    .account_icon {
+        width: 64px;
+        height: 64px;
+        
+    }
+    
+    
+    
+}
