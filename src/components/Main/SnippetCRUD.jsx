@@ -5,7 +5,7 @@ import styles from './SnippetCRUD.module.scss';
 import CodemirrorField from '../CodemirrorField';
 
 const SnippetCRUD = () => {
-  const [code, setCode] = useState('<p>Hello world!</p>');
+  const [code, setCode] = useState('\n\n\n\n\n\n\n\n');
 
   const options = {
     mode: 'jsx',
@@ -28,7 +28,11 @@ const SnippetCRUD = () => {
         <button className={styles.delete_button}>Delete</button>
       </div>
 
-      {/* chatGPT, write your code  */}
+      <div className={styles.description}>
+        <input type="text" placeholder="Title.." />
+        <textarea placeholder="Some description.." />
+      </div>
+
       <CodemirrorField options={options} code={code} setCode={setCode} />
     </div>
   );
