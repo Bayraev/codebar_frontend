@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './SnippetCRUD.scss';
 import styles from './SnippetCRUD.module.scss';
 import CodemirrorField from '../CodemirrorField';
+import SnippetDescriptionField from './SnippetDescriptionField';
 
 const SnippetCRUD = () => {
   const [code, setCode] = useState('\n\n\n\n\n\n\n\n');
@@ -28,10 +29,7 @@ const SnippetCRUD = () => {
         <button className={styles.delete_button}>Delete</button>
       </div>
 
-      <div className={styles.description}>
-        <input type="text" placeholder="Title.." />
-        <textarea placeholder="Some description.." />
-      </div>
+      <SnippetDescriptionField styles={styles} />
 
       <CodemirrorField options={options} code={code} setCode={setCode} />
     </div>
