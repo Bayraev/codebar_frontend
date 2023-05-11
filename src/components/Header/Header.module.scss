@@ -3,7 +3,9 @@
     justify-content: space-between;
     align-items: center;
     
-    span {
+    .header {
+        text-decoration: none;
+        color: black;
         font-family: 'Kreon';
         font-style: normal;
         font-weight: 400;

@@ -2,12 +2,16 @@ import React from 'react';
 import styles from './Main.module.scss';
 import Snippets from './Snippets';
 import SnippetCRUD from './SnippetCRUD';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 const Main = () => {
   return (
     <div className={styles.wrapper}>
-      <SnippetCRUD />
-      {/* <Snippets /> */}
+      <Routes>
+        <Route path="/" element={<Navigate to="/snippets" />} />
+        <Route path="/snippets" element={<Snippets />} />
+        <Route path="/edit" element={<SnippetCRUD />} />
+      </Routes>
     </div>
   );
 };

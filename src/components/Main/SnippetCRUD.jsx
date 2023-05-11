@@ -4,6 +4,7 @@ import './SnippetCRUD.scss';
 import styles from './SnippetCRUD.module.scss';
 import CodemirrorField from '../CodemirrorField';
 import SnippetDescriptionField from './SnippetDescriptionField';
+import { Link } from 'react-router-dom';
 
 const SnippetCRUD = () => {
   const [code, setCode] = useState('\n\n\n\n\n\n\n\n');
@@ -25,8 +26,10 @@ const SnippetCRUD = () => {
         <div className={styles.tag}>EcmaScrypt</div>
       </div>
       <div className={styles.update_or_delete}>
-        <button className="dark_gray_button">Confirm</button>
-        <button className={styles.delete_button}>Delete</button>
+        <Link to="/">
+          <button className="dark_gray_button">Confirm</button>
+          <button className={styles.delete_button}>Delete</button>
+        </Link>
       </div>
 
       <SnippetDescriptionField styles={styles} />

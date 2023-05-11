@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Snippets.module.scss';
 import sort_icon from '../../assets/images/settings_icon.png';
 import search_icon from '../../assets/images/search_icon.png';
+import { Link } from 'react-router-dom';
 
 const Snippets = () => {
   return (
@@ -12,7 +13,9 @@ const Snippets = () => {
       </div>
       <form>
         <input placeholder="Search by title.." type="text" />
-        <button className="dark_gray_button">New Snippet</button>
+        <Link to="/edit">
+          <button className="dark_gray_button">New Snippet</button>
+        </Link>
       </form>
 
       <div className={styles.rendering_div}>
