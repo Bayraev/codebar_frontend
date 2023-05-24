@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Snippets.module.scss';
 import sort_icon from '../../assets/images/settings_icon.png';
 import search_icon from '../../assets/images/search_icon.png';
+import snippetsJson from '../../assets/snippets.json';
 import { Link } from 'react-router-dom';
 
 const Snippets = () => {
@@ -19,6 +20,20 @@ const Snippets = () => {
       </form>
 
       <div className={styles.rendering_div}>
+        {snippetsJson.map((e) => {
+          return (
+            <div className={styles.rendered_item}>
+              <div className={styles.description}>
+                <h3>{e.title}</h3>
+                <span>{e.description}</span>
+              </div>
+              <div className={styles.tags_and_codepopup}>
+                <span>{e.tags.map((e) => e)}</span>
+              </div>
+            </div>
+          );
+        })}
+
         <div className={styles.rendered_item}>
           <div className={styles.description}>
             <h3>Title of bullshit</h3>
