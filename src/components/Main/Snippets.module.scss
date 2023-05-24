@@ -33,30 +33,52 @@
         
         .rendered_item {
             word-break: break-all;
-            // width: 25%;
-            min-height: 300px;
+            height: 400px;
+            overflow-y: scroll; //? Enables vertical scrollbar
             padding: 0 35px 35px 35px;
             background-color: #4E4E4E;
             color: white;
-            h3 {
+          
+            &::-webkit-scrollbar {
+              width: 8px; //? Sets the width of the scrollbar
+              background-color: transparent; //? Makes the scrollbar transparent
+            }
+          
+            &::-webkit-scrollbar-thumb {
+              background-color: white; //? Sets the color of the scrollbar thumb
+              border-radius: 4px; //? Rounds the corners of the scrollbar thumb
+            }
+          
+            .description {
+              h3 {
                 font-size: medium;
                 font-weight: 400;
                 font-size: 40px;
                 line-height: 50px;
-
-            }
-            span {
+              }
+          
+              span {
                 font-family: 'Kreon';
                 font-style: normal;
                 font-weight: 400;
                 font-size: 22px;
                 line-height: 38px;
+              }
             }
-            // .code_popup {
-                
-            //     align-items: end;
-                
-            // }
-        }
+          
+            .tags_and_codepopup {
+              padding-top: 10%;
+          
+              span {
+                // styles for tags
+              }
+          
+              // .code_popup {
+              //   align-items: end;
+              // }
+            }
+          }
+          
+          
     }
 }

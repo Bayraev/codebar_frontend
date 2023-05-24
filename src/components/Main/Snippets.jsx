@@ -20,32 +20,26 @@ const Snippets = () => {
 
       <div className={styles.rendering_div}>
         <div className={styles.rendered_item}>
-          <div>
+          <div className={styles.description}>
             <h3>Title of bullshit</h3>
             <span>
               Little description is about description a little bit one description is about
               description a little bit one description is about description a little bit one
               description is about description a little bit one description is about description a
               little bit one description is about description a little bit one description is about
+              description a little bit one description is about description a little bit oneis about
+              description a little bit one description is about description a little bit oneis about
               description a little bit one description is about description a little bit one
             </span>
           </div>
-          {/* <button className={styles.code_popup}>Check</button> */}
-        </div>
-        <div className={styles.rendered_item}>
-          <div>
-            <h3>Title of bullshit</h3>
-            <span>
-              Little description is about description a little bit one description is about
-              description a little bit one description is about description a little bit one
-              description is about description a little bit one
-            </span>
+          <div className={styles.tags_and_codepopup}>
+            <span>JS, HTML, EcmaScript</span>
+            {/* <button className={styles.code_popup}>Check</button> */}
           </div>
-          {/* <button className={styles.code_popup}>Check</button> */}
         </div>
 
         <div className={styles.rendered_item}>
-          <div>
+          <div className={styles.description}>
             <h3>Title of bullshit</h3>
             <span>
               Little description is about description a little bit one description is about
@@ -53,18 +47,10 @@ const Snippets = () => {
               description is about description a little bit one
             </span>
           </div>
-          {/* <button className={styles.code_popup}>Check</button> */}
-        </div>
-        <div className={styles.rendered_item}>
-          <div>
-            <h3>Title of bullshit</h3>
-            <span>
-              Little description is about description a little bit one description is about
-              description a little bit one description is about description a little bit one
-              description is about description a little bit one
-            </span>
+          <div className={styles.tags_and_codepopup}>
+            <span>JS, HTML, EcmaScript</span>
+            {/* <button className={styles.code_popup}>Check</button> */}
           </div>
-          {/* <button className={styles.code_popup}>Check</button> */}
         </div>
       </div>
     </div>
