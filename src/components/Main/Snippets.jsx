@@ -6,6 +6,11 @@ import snippetsJson from '../../assets/snippets.json';
 import { Link } from 'react-router-dom';
 
 const Snippets = () => {
+  //* Work with redux-toolkit
+  const handleEdit = (index, title, description, snippet, tags, typeOfWork) => {
+    console.log(index, title, description, snippet, tags, typeOfWork);
+  };
+
   return (
     <div className={styles.snippets_wrapper}>
       <div className={styles.flex}>
@@ -20,9 +25,12 @@ const Snippets = () => {
       </form>
 
       <div className={styles.rendering_div}>
-        {snippetsJson.map((e) => {
+        {snippetsJson.map((e, i) => {
           return (
-            <div className={styles.rendered_item}>
+            <div
+              className={styles.rendered_item}
+              key={i}
+              onClick={() => handleEdit(i, e.title, e.description, e.snippet, e.tags)}>
               <div className={styles.description}>
                 <h3>{e.title}</h3>
                 <span>{e.description}</span>

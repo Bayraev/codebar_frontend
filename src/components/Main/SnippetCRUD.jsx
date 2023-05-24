@@ -7,7 +7,15 @@ import SnippetDescriptionField from './SnippetDescriptionField';
 import { Link } from 'react-router-dom';
 
 const SnippetCRUD = () => {
+  //* work with redux-toolkit
+  // expected props for RUD (no creating new snippet)
   const [code, setCode] = useState('\n\n\n\n\n\n\n\n');
+  const [isCreating, setIsCreating] = useState(true);
+
+  //* work with redux-toolkit is we get title, it IS RUD
+  // if (props.title) {
+  //   setIsCreating(false);
+  // }
 
   const options = {
     mode: 'jsx',
