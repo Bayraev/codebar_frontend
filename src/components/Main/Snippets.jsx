@@ -47,7 +47,7 @@ const Snippets = () => {
     <div className={styles.snippets_wrapper}>
       <div className={styles.flex}>
         <img
-          onClick={setSeeTagsWindow(!seeTagsWindow)} // its make error 'Too many re-renders. React limits the number of renders to prevent an infinite loop.'
+          onClick={setSeeTagsWindow(!seeTagsWindow)} //! its make error 'Too many re-renders. React limits the number of renders to prevent an infinite loop.'
           className={styles.icon50x50}
           src={sort_icon}
         />
