@@ -4,11 +4,11 @@ import sort_icon from '../../assets/images/settings_icon.png';
 import search_icon from '../../assets/images/search_icon.png';
 import snippetsJson from '../../assets/snippets.json';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 const Snippets = () => {
   // states
-  const [seeTagsWindow, setSeeTagsWindow] = useState(false);
+  const [seeTagsWindow, setSeeTagsWindow] = useState(false); // tags window ui
   const [search, setSearch] = useState(''); // live searching
   const [fileredSnippets, setFilteredSnippets] = useState(snippetsJson); // thats what we render like everytime
   // preparing all tags which exist for tags-list-window
@@ -43,17 +43,42 @@ const Snippets = () => {
     }
   };
 
+  // useEffect for avent capturing, to register click outside 'tags_window', using useRef
+  const refTagsWindow = useRef(null);
+  // useEffect for avent capturing, to register click outside 'tags_window', using useRef
+  useEffect(() => {
+    // This function handles the outside click event.
+    const handleOutsideClick = (event) => {
+      // Check if the refTagsWindow is defined and if the clicked element is not inside the refTagsWindow.
+      if (refTagsWindow.current && !refTagsWindow.current.contains(event.target)) {
+        // If the conditions are met, we set the seeTagsWindow state to false to close the tags window.
+        setSeeTagsWindow(false);
+      }
+    };
+
+    // When seeTagsWindow is true, we add the event listener for mousedown on the document.
+    if (seeTagsWindow) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    }
+
+    // The return statement in useEffect is used for cleanup.
+    // It removes the event listener when the component is unmounted or when the seeTagsWindow value changes.
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [seeTagsWindow]);
+
+  const handleSeeTagsWindow = () => {
+    setSeeTagsWindow(true);
+  };
+
   return (
     <div className={styles.snippets_wrapper}>
       <div className={styles.flex}>
-        <img
-          onClick={setSeeTagsWindow(!seeTagsWindow)} //! its make error 'Too many re-renders. React limits the number of renders to prevent an infinite loop.'
-          className={styles.icon50x50}
-          src={sort_icon}
-        />
+        <img onClick={() => handleSeeTagsWindow()} className={styles.icon50x50} src={sort_icon} />
         <img className={styles.icon50x50} src={search_icon} />
       </div>
-      <div className={styles.tags_window}>s</div> //! finish it
+
       <form>
         <input
           onChange={(e) => handleSearch(e.target.value)}
@@ -64,6 +89,16 @@ const Snippets = () => {
           <button className="dark_gray_button">New Snippet</button>
         </Link>
       </form>
+
+      {seeTagsWindow && (
+        <div ref={refTagsWindow} className={styles.tags_window}>
+          Tags:
+          {tagsForTagsWindow.map((tag) => (
+            <span> {tag} </span>
+          ))}
+        </div>
+      )}
+
       <div className={styles.rendering_div}>
         {fileredSnippets.map((e, i) => {
           return (
