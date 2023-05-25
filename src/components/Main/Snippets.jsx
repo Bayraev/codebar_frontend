@@ -7,11 +7,21 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 const Snippets = () => {
-  //! HERE FOR A WHILE
-
-  // HERE
+  // states
+  const [seeTagsWindow, setSeeTagsWindow] = useState(false);
   const [search, setSearch] = useState(''); // live searching
   const [fileredSnippets, setFilteredSnippets] = useState(snippetsJson); // thats what we render like everytime
+  // preparing all tags which exist for tags-list-window
+  const tagsForTagsWindow = [];
+  snippetsJson.map((snippet) => {
+    snippet.tags.map((tag) => {
+      if (!tagsForTagsWindow.includes(tag)) {
+        tagsForTagsWindow.push(tag);
+      }
+    });
+  });
+
+  console.log(tagsForTagsWindow);
   //* Work with redux-toolkit
   const handleEdit = (index, title, description, snippet, tags, typeOfWork) => {
     console.log(index, title, description, snippet, tags, typeOfWork);
@@ -36,9 +46,14 @@ const Snippets = () => {
   return (
     <div className={styles.snippets_wrapper}>
       <div className={styles.flex}>
-        <img className={styles.icon50x50} src={sort_icon} />
+        <img
+          onClick={setSeeTagsWindow(!seeTagsWindow)} // its make error 'Too many re-renders. React limits the number of renders to prevent an infinite loop.'
+          className={styles.icon50x50}
+          src={sort_icon}
+        />
         <img className={styles.icon50x50} src={search_icon} />
       </div>
+      <div className={styles.tags_window}>s</div> //! finish it
       <form>
         <input
           onChange={(e) => handleSearch(e.target.value)}
@@ -49,7 +64,6 @@ const Snippets = () => {
           <button className="dark_gray_button">New Snippet</button>
         </Link>
       </form>
-
       <div className={styles.rendering_div}>
         {fileredSnippets.map((e, i) => {
           return (
