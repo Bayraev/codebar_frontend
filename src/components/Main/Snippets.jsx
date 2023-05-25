@@ -4,11 +4,33 @@ import sort_icon from '../../assets/images/settings_icon.png';
 import search_icon from '../../assets/images/search_icon.png';
 import snippetsJson from '../../assets/snippets.json';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const Snippets = () => {
+  //! HERE FOR A WHILE
+
+  // HERE
+  const [search, setSearch] = useState(''); // live searching
+  const [fileredSnippets, setFilteredSnippets] = useState(snippetsJson); // thats what we render like everytime
   //* Work with redux-toolkit
   const handleEdit = (index, title, description, snippet, tags, typeOfWork) => {
     console.log(index, title, description, snippet, tags, typeOfWork);
+  };
+
+  // dynamic searching by title and tags
+  const handleSearch = (value, tags) => {
+    // searching by value
+    if (value) {
+      setSearch(value);
+      console.log(value);
+      const newArray = snippetsJson.filter((e) => {
+        return e.title.toLowerCase().includes(value.toLowerCase());
+      });
+      setFilteredSnippets(newArray);
+    }
+    // searching by tags
+    if (tags) {
+    }
   };
 
   return (
@@ -18,14 +40,18 @@ const Snippets = () => {
         <img className={styles.icon50x50} src={search_icon} />
       </div>
       <form>
-        <input placeholder="Search by title.." type="text" />
+        <input
+          onChange={(e) => handleSearch(e.target.value)}
+          placeholder="Search by title.."
+          type="text"
+        />
         <Link to="/edit">
           <button className="dark_gray_button">New Snippet</button>
         </Link>
       </form>
 
       <div className={styles.rendering_div}>
-        {snippetsJson.map((e, i) => {
+        {fileredSnippets.map((e, i) => {
           return (
             <div
               className={styles.rendered_item}
@@ -36,45 +62,11 @@ const Snippets = () => {
                 <span>{e.description}</span>
               </div>
               <div className={styles.tags_and_codepopup}>
-                <span>{e.tags.map((e) => e)}</span>
+                <span>{e.tags.map((e) => e + ' ')}</span>
               </div>
             </div>
           );
         })}
-
-        <div className={styles.rendered_item}>
-          <div className={styles.description}>
-            <h3>Title of bullshit</h3>
-            <span>
-              Little description is about description a little bit one description is about
-              description a little bit one description is about description a little bit one
-              description is about description a little bit one description is about description a
-              little bit one description is about description a little bit one description is about
-              description a little bit one description is about description a little bit oneis about
-              description a little bit one description is about description a little bit oneis about
-              description a little bit one description is about description a little bit one
-            </span>
-          </div>
-          <div className={styles.tags_and_codepopup}>
-            <span>JS, HTML, EcmaScript</span>
-            {/* <button className={styles.code_popup}>Check</button> */}
-          </div>
-        </div>
-
-        <div className={styles.rendered_item}>
-          <div className={styles.description}>
-            <h3>Title of bullshit</h3>
-            <span>
-              Little description is about description a little bit one description is about
-              description a little bit one description is about description a little bit one
-              description is about description a little bit one
-            </span>
-          </div>
-          <div className={styles.tags_and_codepopup}>
-            <span>JS, HTML, EcmaScript</span>
-            {/* <button className={styles.code_popup}>Check</button> */}
-          </div>
-        </div>
       </div>
     </div>
   );
