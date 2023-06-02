@@ -21,5 +21,11 @@
     "description": "Little description is about description a little bit one description is about description a little bit one description is about description a little bit one description is about description a little bit one",
     "snippet": "<h> Hello World!</h>",
     "tags": ["Js", "Mongoose", "tag"]
+},
+{
+    "title": "Фильтрация",
+    "description": "Little description is about description a little bit one description is about description a little bit one description is about description a little bit one description is about description a little bit one",
+    "snippet": "<h> Hello World!</h>",
+    "tags": ["php", "python", "tag"]
 }
 ]

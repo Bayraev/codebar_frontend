@@ -8,6 +8,8 @@ import { useState, useRef, useEffect } from 'react';
 
 const Snippets = () => {
   // states
+  const [selectedTags, setSelectedTags] = useState([]);
+
   const [seeTagsWindow, setSeeTagsWindow] = useState(false); // tags window ui
   const [search, setSearch] = useState(''); // live searching
   const [fileredSnippets, setFilteredSnippets] = useState(snippetsJson); // thats what we render like everytime
@@ -21,26 +23,18 @@ const Snippets = () => {
     });
   });
 
-  console.log(tagsForTagsWindow);
   //* Work with redux-toolkit
   const handleEdit = (index, title, description, snippet, tags, typeOfWork) => {
     console.log(index, title, description, snippet, tags, typeOfWork);
   };
 
   // dynamic searching by title and tags
-  const handleSearch = (value, tags) => {
-    // searching by value
-    if (value) {
-      setSearch(value);
-      console.log(value);
-      const newArray = snippetsJson.filter((e) => {
-        return e.title.toLowerCase().includes(value.toLowerCase());
-      });
-      setFilteredSnippets(newArray);
-    }
-    // searching by tags
-    if (tags) {
-    }
+  const handleSearch = (value) => {
+    setSearch(value);
+    const newArray = snippetsJson.filter((e) => {
+      return e.title.toLowerCase().includes(value.toLowerCase());
+    });
+    setFilteredSnippets(newArray);
   };
 
   // useEffect for avent capturing, to register click outside 'tags_window', using useRef
@@ -72,6 +66,19 @@ const Snippets = () => {
     setSeeTagsWindow(true);
   };
 
+  const handleTagClick = (tag) => {
+    if (selectedTags.includes(tag)) {
+      setSelectedTags(selectedTags.filter((selectedTag) => selectedTag !== tag));
+    } else {
+      setSelectedTags([...selectedTags, tag]);
+    }
+    // Фильтрация объектов на основе выбранных тегов
+    const filteredStates = fileredSnippets.filter((snippet) =>
+      selectedTags.every((selectedTag) => snippet.tags.includes(selectedTag)),
+    );
+    setFilteredSnippets(filteredStates);
+  };
+
   return (
     <div className={styles.snippets_wrapper}>
       <div className={styles.flex}>
@@ -92,10 +99,17 @@ const Snippets = () => {
 
       {seeTagsWindow && (
         <div ref={refTagsWindow} className={styles.tags_window}>
-          Tags:
-          {tagsForTagsWindow.map((tag) => (
-            <span> {tag} </span>
-          ))}
+          <span>Tags:</span>
+          <div className={styles.tags_list}>
+            {tagsForTagsWindow.map((tag) => (
+              <span
+                key={tag}
+                onClick={() => handleTagClick(tag)}
+                className={selectedTags.includes(tag) ? styles.selected_tag : ''}>
+                {tag},{'  '}
+              </span>
+            ))}
+          </div>
         </div>
       )}
 

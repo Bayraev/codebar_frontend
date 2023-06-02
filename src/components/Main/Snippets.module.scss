@@ -30,6 +30,15 @@
       box-sizing: border-box;
       padding: 10px;
       word-break: break-all;
+
+      .tags_list {
+        cursor: pointer;
+        user-select: none;
+        .selected_tag{
+          color: blue;
+        }
+      }
+
     }
 
     .rendering_div {
