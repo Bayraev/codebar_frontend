@@ -14,5 +14,5 @@ $api.interceptors.request.use((config) => {
   config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`; // token is in localstorage
   return config;
 });
-
+//
 export default $api;
