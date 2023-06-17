@@ -13,7 +13,7 @@ export default class AuthService {
         return $api.post<AuthResponse>('/registration', {email, password}) // sending authorization
     }
     
-    // in promise we have generic which contains interface of what we will got from server
+    // in promise we have void!
     static async logout(): Promise<void> { 
         return $api.post('/logout') // sending authorization
     }
