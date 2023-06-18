@@ -10,3 +10,8 @@ declare module 'codebar/components/Header/Header.jsx' {
   export default Main;
   }
   
+  declare module '*.scss' {
+    const content: { [className: string]: string };
+    export default content;
+  }
+  
