@@ -1,11 +1,12 @@
-declare module './components/Header/Header' {
+declare module 'codebar/components/Header/Header.jsx' {
   import { FC } from 'react';
   const Header: FC;
   export default Header;
-}
-
-declare module './testJs' {
-  import { FC } from 'react'
-  const test_const: FC;
-  export default test_const
-}
+  }
+  
+  declare module 'codebar/components/Main/Main.jsx' {
+  import { FC } from 'react';
+  const Main: FC;
+  export default Main;
+  }
+  

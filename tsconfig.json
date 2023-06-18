@@ -1,26 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    /* Language and Environment */
+    "target": "es2016", // Specifies the version of ECMAScript (JavaScript) for which TypeScript code will be compiled
+    "jsx": "preserve", // "preserve" means that TypeScript will preserve the JSX syntax without transforming it.                  
+    /* Modules */
+    "module": "commonjs",
+    "esModuleInterop": true, 
+    "forceConsistentCasingInFileNames": true, // Indicates the preferred use of universal case for filenames and imports. They gotta be same
+    /* Type Checking */
+    // "strict": true, // strict checking of types
+    // "skipLibCheck": true // its turns off checking of types for files in node-modules.
   },
   "include": [
-    "src"
+    "src",
+    "src/typings.d.ts"
   ]
 }
