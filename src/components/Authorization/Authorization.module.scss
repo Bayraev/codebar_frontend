@@ -1,3 +1,56 @@
 .Authorization {
-    color: red
+    position: absolute;
+    left: 76%;
+    top: 30px;
+    width: 300px;
+    min-height: 250px;
+    background-color: white;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 25px 35px 25px 35px;
+    
+    .title {
+        font-family: 'Kreon';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 30px;
+        text-align: center;        
+        color: #000000;
+        
+        cursor: pointer;
+        user-select: none;
+        .underline {
+            border-bottom: 2px solid black;
+        }
+    }
+    .inputs {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        input {
+            margin-top: 20px;
+            width: 100%;
+            background: #EFEFEF;
+            color: #616161;           
+        }
+    }
+    .continue {
+        display: flex;
+        justify-content: center;
+        button {
+            width: 60%;
+            height: 40px;
+            background: #4E4E4E;
+            margin-top: 20px;
+            
+            font-family: 'Kreon';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 20px;            
+            color: #FFFFFF;
+        }
+    }
+    .error {
+        color: red;
+    }
 } 
