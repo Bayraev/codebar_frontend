@@ -8,7 +8,7 @@ function App(): JSX.Element {
   return (
     <div className="App">
       <Header />
-      <hr />
+      {/* <hr /> */}
       <Main />
     </div>
 )
