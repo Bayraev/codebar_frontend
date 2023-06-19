@@ -1,14 +1,17 @@
 import React, { useRef, useState } from 'react';
 import styles from './Authorization.module.scss';
+import { login, registration } from '../../app/features/AuthSlice';
+import { AppDispatch } from '../../app/store';
+import { useDispatch } from 'react-redux';
 
-interface AuthorizationProps {
-  styles: typeof styles;
-}
 
 function Authorization(): JSX.Element {
-  const [isSignIn, setIsSignIn] = useState<boolean>(true);
-  const signInRef = useRef<HTMLSpanElement>(null);
-  const signUpRef = useRef<HTMLSpanElement>(null);
+  const dispatch: AppDispatch = useDispatch()
+
+  const [isSignIn, setIsSignIn] = useState<boolean>(true); // see or dont see auth window
+
+  const signInRef = useRef<HTMLSpanElement>(null); // ref for border_bottom
+  const signUpRef = useRef<HTMLSpanElement>(null); // ref for border_bottom 
 
   // data in inputs..
   const [email,  setEmail] = useState<string>('')
@@ -18,7 +21,6 @@ function Authorization(): JSX.Element {
   //errors
   const [isPasswordValid, setIsPasswordValid] = useState<string>('')
   const [isEmailValid, setIsEmailValid] = useState<string>('')
-  const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState<string>('')
 
 
 
@@ -26,7 +28,7 @@ function Authorization(): JSX.Element {
     setIsSignIn(action);
   }; // jut switchin sign in/up
   
-  const handleSignUpSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignUpSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const timeout: number = 9000;
   
@@ -60,11 +62,7 @@ function Authorization(): JSX.Element {
       return;
     }
 
-    
-    console.log('Everything working in sign up yet.');
-    
-
-
+    dispatch(registration({email, password}))
     
   }
   
@@ -96,7 +94,7 @@ function Authorization(): JSX.Element {
 
     
     console.log('Everything working in sign IN yet.');
-
+    dispatch(login({email, password}))
   }
 
 
