@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 function Authorization(): JSX.Element {
   const dispatch: AppDispatch = useDispatch()
 
-  const [isSignIn, setIsSignIn] = useState<boolean>(true); // see or dont see auth window
+  const [seeSignIn, setSeeSignIn] = useState<boolean>(false); // see or dont see auth window
 
   const signInRef = useRef<HTMLSpanElement>(null); // ref for border_bottom
   const signUpRef = useRef<HTMLSpanElement>(null); // ref for border_bottom 
@@ -25,7 +25,7 @@ function Authorization(): JSX.Element {
 
 
   const handleSigning = (action: boolean) => {
-    setIsSignIn(action);
+    setSeeSignIn(action);
   }; // jut switchin sign in/up
   
   const handleSignUpSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
@@ -103,7 +103,7 @@ function Authorization(): JSX.Element {
     <div className={styles.Authorization}>
       <div className={styles.title}>
         <span
-          className={isSignIn ? styles.underline : ''}
+          className={seeSignIn ? styles.underline : ''}
           ref={signInRef}
           onClick={() => handleSigning(true)}
         >
@@ -111,7 +111,7 @@ function Authorization(): JSX.Element {
         </span>
         <span> / </span>
         <span
-          className={!isSignIn ? styles.underline : ''}
+          className={!seeSignIn ? styles.underline : ''}
           ref={signUpRef}
           onClick={() => handleSigning(false)}
         >
@@ -119,7 +119,7 @@ function Authorization(): JSX.Element {
         </span>
       </div>
 
-      {isSignIn && (
+      {seeSignIn && (
         <form onSubmit={(e) => handleSignInSubmit(e)}>
           <div className={styles.inputs}>
             <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
@@ -131,7 +131,7 @@ function Authorization(): JSX.Element {
         </form>
       )}
 
-      {!isSignIn && (
+      {!seeSignIn && (
         <form onSubmit={(e) => handleSignUpSubmit(e)}>
           <div className={styles.inputs}>
             <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
