@@ -25,3 +25,6 @@ const snippetsSlice = createSlice({
         }
     }
 })
+
+export const {addSnippet} = snippetsSlice.actions
+export default snippetsSlice.reducer

@@ -5,17 +5,18 @@ import search_icon from '../../assets/images/search_icon.png';
 import snippetsJson from '../../assets/snippets.json';
 import { Link } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
-
+import { useSelector } from 'react-redux';
 const Snippets = () => {
+  const { snippets } = useSelector((state) => state.snippets);
   // states
   const [selectedTags, setSelectedTags] = useState([]);
 
   const [seeTagsWindow, setSeeTagsWindow] = useState(false); // tags window ui
   const [search, setSearch] = useState(''); // live searching
-  const [fileredSnippets, setFilteredSnippets] = useState(snippetsJson); // thats what we render like everytime
+  const [fileredSnippets, setFilteredSnippets] = useState(snippets); // thats what we render like everytime
   // preparing all tags which exist for tags-list-window
   const tagsForTagsWindow = [];
-  snippetsJson.map((snippet) => {
+  snippets.map((snippet) => {
     snippet.tags.map((tag) => {
       if (!tagsForTagsWindow.includes(tag)) {
         tagsForTagsWindow.push(tag);
@@ -62,10 +63,7 @@ const Snippets = () => {
     };
   }, [seeTagsWindow]);
 
-  const handleSeeTagsWindow = () => {
-    setSeeTagsWindow(true);
-  };
-
+  // Filter by tags.
   const handleTagClick = (tag) => {
     if (selectedTags.includes(tag)) {
       setSelectedTags(selectedTags.filter((selectedTag) => selectedTag !== tag));
@@ -82,7 +80,7 @@ const Snippets = () => {
   return (
     <div className={styles.snippets_wrapper}>
       <div className={styles.flex}>
-        <img onClick={() => handleSeeTagsWindow()} className={styles.icon50x50} src={sort_icon} />
+        <img onClick={() => setSeeTagsWindow(true)} className={styles.icon50x50} src={sort_icon} />
         <img className={styles.icon50x50} src={search_icon} />
       </div>
 
