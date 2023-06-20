@@ -9,7 +9,7 @@ const Header = () => {
   const [authWindowOpened, setAuthWindowOpened] = useState(false);
   return (
     <>
-      {!authWindowOpened && <Authorization />}
+      {authWindowOpened && <Authorization />}
 
       <div className={styles.wrapper}>
         <Link to="/" className={styles.header}>
