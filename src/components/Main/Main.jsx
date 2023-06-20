@@ -10,7 +10,7 @@ const Main = () => {
       <Routes>
         <Route path="/" element={<Navigate to="/snippets" />} />
         <Route path="/snippets" element={<Snippets />} />
-        <Route path="/edit" element={<SnippetCRUD />} />
+        <Route path="/snippet" element={<SnippetCRUD />} />
       </Routes>
     </div>
   );
