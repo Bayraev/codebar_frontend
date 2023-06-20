@@ -12,7 +12,7 @@ const Snippets = () => {
   const [selectedTags, setSelectedTags] = useState([]);
 
   const [seeTagsWindow, setSeeTagsWindow] = useState(false); // tags window ui
-  const [search, setSearch] = useState(''); // live searching
+  const [_, setSearch] = useState(''); // live searching
   const [fileredSnippets, setFilteredSnippets] = useState(snippets); // thats what we render like everytime
   // preparing all tags which exist for tags-list-window
   const tagsForTagsWindow = [];
@@ -90,7 +90,7 @@ const Snippets = () => {
           placeholder="Search by title.."
           type="text"
         />
-        <Link to="/edit">
+        <Link to="/snippet">
           <button className="dark_gray_button">New Snippet</button>
         </Link>
       </form>
