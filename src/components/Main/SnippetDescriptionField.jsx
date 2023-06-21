@@ -1,6 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 
 const SnippetDescriptionField = (props) => {
+  /*
+        styles={styles}
+        title={title}
+        setTitle={setTitle}
+        description={description}
+        setDescription={setDescription}
+  */
   // Textarea's height extending function.
   // UseEffect we need, ig, bcs when we reload page, for 1 moment we lose "textarea"..
   // ..and listener says "cannot read null"
@@ -18,8 +25,20 @@ const SnippetDescriptionField = (props) => {
 
   return (
     <div className={props.styles.description}>
-      <input type="text" placeholder="Title.." />
-      <textarea id="description_area" placeholder="Some description.." />
+      <input
+        type="text"
+        placeholder="Title.."
+        value={props.title}
+        onChange={(e) => {
+          props.setTitle(e.target.value);
+        }}
+      />
+      <textarea
+        id="description_area"
+        placeholder="Some description.."
+        value={props.description}
+        onChange={(e) => props.setDescription(e.target.value)}
+      />
     </div>
   );
 };

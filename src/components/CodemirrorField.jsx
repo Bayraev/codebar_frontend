@@ -13,7 +13,7 @@ import {
 loadLanguage('tsx');
 langs.tsx();
 
-const CodemirrorField = ({ options, code, setCode }) => {
+const CodemirrorField = ({ options, snippet, setSnippet }) => {
   return (
     <CodeMirror
       theme={materialDarkInit({
@@ -23,8 +23,8 @@ const CodemirrorField = ({ options, code, setCode }) => {
         },
       })}
       extensions={[langs.tsx()]}
-      value={code}
-      onChange={(value) => setCode(value)}
+      value={snippet}
+      onChange={(value) => setSnippet(value)}
       options={options}
     />
   );

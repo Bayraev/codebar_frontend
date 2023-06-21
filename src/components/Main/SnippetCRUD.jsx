@@ -1,21 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './SnippetCRUD.scss';
 import styles from './SnippetCRUD.module.scss';
 import CodemirrorField from '../CodemirrorField';
 import SnippetDescriptionField from './SnippetDescriptionField';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const SnippetCRUD = () => {
-  //* work with redux-toolkit
-  // expected props for RUD (no creating new snippet)
-  const [code, setCode] = useState('\n\n\n\n\n\n\n\n');
-  const [isCreating, setIsCreating] = useState(true);
+  const { id } = useParams(); // if we have it we got it
 
-  //* work with redux-toolkit is we get title, it IS RUD
-  // if (props.title) {
-  //   setIsCreating(false);
-  // }
+  const [snippet, setSnippet] = useState('\n\n\n\n\n\n\n\n');
+  const [tags, setTags] = useState([]);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+
+  const snippets = useSelector((state) => state.snippets.snippets); // array
+
+  useEffect(() => {
+    if (snippets) {
+      const selectedSnippet = snippets.find((snippet) => snippet.uniqId === id);
+      const { snippet, title, description, tags, hidden } = selectedSnippet;
+      setSnippet(snippet);
+      setTitle(title);
+      setDescription(description);
+      setTags(tags);
+    }
+  }, []);
+
+  const handleSubmit = (data) => {
+    if (id) {
+      // Обновление существующего сниппета
+      // dispatch(updateSnippet({ id, data }));
+    } else {
+      // Создание нового сниппета
+      // dispatch(createSnippet(data));
+    }
+  };
 
   const options = {
     mode: 'jsx',
@@ -25,13 +46,14 @@ const SnippetCRUD = () => {
 
   return (
     <div id="SnippetWrapper">
-      <form action="submit">
+      <form action="submit" onSubmit={(e) => handleSubmit(e)}>
         <input type="text" placeholder="Large language model" className="input" />
         <button className="dark_gray_button">Add Tag</button>
       </form>
       <div className={styles.tags}>
-        <div className={styles.tag}>CSS</div>
-        <div className={styles.tag}>EcmaScrypt</div>
+        {tags.map((tag) => {
+          return <div className={styles.tag}>{tag}</div>;
+        })}
       </div>
       <div className={styles.update_or_delete}>
         <Link to="/">
@@ -40,9 +62,15 @@ const SnippetCRUD = () => {
         </Link>
       </div>
 
-      <SnippetDescriptionField styles={styles} />
+      <SnippetDescriptionField
+        styles={styles}
+        title={title}
+        setTitle={setTitle}
+        description={description}
+        setDescription={setDescription}
+      />
 
-      <CodemirrorField options={options} code={code} setCode={setCode} />
+      <CodemirrorField options={options} snippet={snippet} setSnippet={setSnippet} />
     </div>
   );
 };
