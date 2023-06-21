@@ -7,6 +7,7 @@ interface SliceState {
 const initialState: SliceState = {
     snippets: [{
     "ownerId": null,
+    "uniqId": 'owjd238hdhn298dn2i39ubfn3',
     "title": "text",
     "snippet": "<h> Hello World!</h>",
     "description": "Little description",

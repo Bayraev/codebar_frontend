@@ -7,6 +7,7 @@ interface IImages {
 
 export interface ISnippet{
     ownerId?: string;
+    uniqId: string;
     title: string;
     snippet: string;
     description: string
