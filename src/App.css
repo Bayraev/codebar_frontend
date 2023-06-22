@@ -52,3 +52,9 @@ input {
 }::-moz-placeholder {
   color: #8E8E8E;
 }
+
+
+.error_report {
+  color: red;
+  size: 10px;
+}

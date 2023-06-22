@@ -90,7 +90,7 @@ const Snippets = () => {
           placeholder="Search by title.."
           type="text"
         />
-        <Link to="/snippet">
+        <Link to="/snippet/new">
           <button className="dark_gray_button">New Snippet</button>
         </Link>
       </form>

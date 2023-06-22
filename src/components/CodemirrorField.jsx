@@ -13,15 +13,24 @@ import {
 loadLanguage('tsx');
 langs.tsx();
 
-const CodemirrorField = ({ options, snippet, setSnippet }) => {
+const options = {
+  mode: 'jsx',
+  theme: 'material',
+  lineNumbers: true,
+  tabSize: 2,
+};
+
+const CodemirrorField = ({ snippet, setSnippet }) => {
   return (
     <CodeMirror
       theme={materialDarkInit({
         settings: {
           caret: '#c6c6c6',
           fontFamily: 'monospace',
+          gutterActiveForeground: 'black',
         },
       })}
+      height="300px"
       extensions={[langs.tsx()]}
       value={snippet}
       onChange={(value) => setSnippet(value)}

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ISnippet } from "../models/ISnippet"
 
 interface SliceState {
@@ -20,12 +20,20 @@ const snippetsSlice = createSlice({
     name: 'snippets',
     initialState,
     reducers: {
-        addSnippet: (state, action) => {
+        addSnippet: (state, action: PayloadAction<ISnippet>) => {
             const snippet = action.payload // obj
             state.snippets.push(snippet) 
+        },
+        updateSnippet: (state, action: PayloadAction<ISnippet>) => {
+            
+            const snippetIndex = state.snippets.findIndex(snippet => action.payload.uniqId === snippet.uniqId); // getting index
+            
+            if (snippetIndex !== -1) {
+                state.snippets[snippetIndex] = action.payload;
+            }
         }
     }
 })
 
-export const {addSnippet} = snippetsSlice.actions
+export const {addSnippet, updateSnippet} = snippetsSlice.actions
 export default snippetsSlice.reducer
