@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './Snippets.module.scss';
 import sort_icon from '../../assets/images/settings_icon.png';
 import search_icon from '../../assets/images/search_icon.png';
-import snippetsJson from '../../assets/snippets.json';
 import { Link } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -32,7 +31,7 @@ const Snippets = () => {
   // dynamic searching by title and tags
   const handleSearch = (value) => {
     setSearch(value);
-    const newArray = snippetsJson.filter((e) => {
+    const newArray = snippets.filter((e) => {
       return e.title.toLowerCase().includes(value.toLowerCase());
     });
     setFilteredSnippets(newArray);
