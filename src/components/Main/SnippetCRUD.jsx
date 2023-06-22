@@ -10,6 +10,7 @@ import { addSnippet, updateSnippet } from '../../app/features/snippetsSlice';
 
 const SnippetCRUD = () => {
   const { id } = useParams(); // if we have it we got it
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
