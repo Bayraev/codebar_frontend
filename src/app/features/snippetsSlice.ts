@@ -31,7 +31,7 @@ const snippetsSlice = createSlice({
             }
             
         },
-        addSnippet: (state, action: PayloadAction<ISnippet>) => {
+        createSnippet: (state, action: PayloadAction<ISnippet>) => {
             const snippet = action.payload // obj
             
             state.snippets.push(snippet) 
@@ -44,9 +44,10 @@ const snippetsSlice = createSlice({
             if (snippetIndex !== -1) {
                 state.snippets[snippetIndex] = action.payload;
             }
-        }
+        },
+        
     }
 })
 
-export const {addSnippet, updateSnippet, getSnippets} = snippetsSlice.actions
+export const {createSnippet, updateSnippet, getSnippets} = snippetsSlice.actions
 export default snippetsSlice.reducer

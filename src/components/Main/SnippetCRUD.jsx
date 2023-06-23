@@ -6,7 +6,7 @@ import CodemirrorField from '../CodemirrorField';
 import SnippetDescriptionField from './SnippetDescriptionField';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { addSnippet, updateSnippet } from '../../app/features/snippetsSlice';
+import { createSnippetSnippet, updateSnippet } from '../../app/features/snippetsSlice';
 
 const SnippetCRUD = () => {
   const { id } = useParams(); // if we have it we got it
@@ -86,7 +86,7 @@ const SnippetCRUD = () => {
         tags,
         image: [],
       };
-      dispatch(addSnippet(arr));
+      dispatch(createSnippet(arr));
       navigate('/');
     }
   };
