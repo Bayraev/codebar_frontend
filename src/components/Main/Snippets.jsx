@@ -2,19 +2,20 @@ import React from 'react';
 import styles from './Snippets.module.scss';
 import sort_icon from '../../assets/images/settings_icon.png';
 import search_icon from '../../assets/images/search_icon.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 const Snippets = () => {
   const { snippets } = useSelector((state) => state.snippets);
   // states
   const [selectedTags, setSelectedTags] = useState([]);
-
   const [seeTagsWindow, setSeeTagsWindow] = useState(false); // tags window ui
   const [_, setSearch] = useState(''); // live searching
   const [fileredSnippets, setFilteredSnippets] = useState(snippets); // thats what we render like everytime
   // preparing all tags which exist for tags-list-window
   const tagsForTagsWindow = [];
+
+  const navigate = useNavigate();
 
   // functions
   snippets.map((snippet) => {
@@ -30,8 +31,8 @@ const Snippets = () => {
   }, [snippets]);
 
   //* Work with redux-toolkit
-  const handleEdit = (index, title, description, snippet, tags, typeOfWork) => {
-    console.log(index, title, description, snippet, tags, typeOfWork);
+  const handleEdit = (uniqId) => {
+    navigate(`/snippet/${uniqId}`);
   };
 
   // dynamic searching by title and tags
@@ -119,10 +120,7 @@ const Snippets = () => {
       <div className={styles.rendering_div}>
         {fileredSnippets.map((e, i) => {
           return (
-            <div
-              className={styles.rendered_item}
-              key={i}
-              onClick={() => handleEdit(i, e.title, e.description, e.snippet, e.tags)}>
+            <div className={styles.rendered_item} key={i} onClick={() => handleEdit(e.uniqId)}>
               <div className={styles.description}>
                 <h3>{e.title}</h3>
                 <span>{e.description}</span>
