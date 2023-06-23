@@ -15,6 +15,8 @@ const Snippets = () => {
   const [fileredSnippets, setFilteredSnippets] = useState(snippets); // thats what we render like everytime
   // preparing all tags which exist for tags-list-window
   const tagsForTagsWindow = [];
+
+  // functions
   snippets.map((snippet) => {
     snippet.tags.map((tag) => {
       if (!tagsForTagsWindow.includes(tag)) {
@@ -22,6 +24,10 @@ const Snippets = () => {
       }
     });
   });
+  useEffect(() => {
+    setFilteredSnippets(snippets);
+    setSearch('');
+  }, [snippets]);
 
   //* Work with redux-toolkit
   const handleEdit = (index, title, description, snippet, tags, typeOfWork) => {
