@@ -45,9 +45,17 @@ const snippetsSlice = createSlice({
                 state.snippets[snippetIndex] = action.payload;
             }
         },
+        deleteSnippet: (state, action: PayloadAction<string>) => {
+            // const snippetIndex = state.snippets.findIndex(snippet => action.payload === snippet.uniqId);
+            console.log(action.payload);
+            
+            const filteredSnippets = state.snippets.filter(snippet => snippet.uniqId !== action.payload)
+            state.snippets = filteredSnippets
+
+        }
         
     }
 })
 
-export const {createSnippet, updateSnippet, getSnippets} = snippetsSlice.actions
+export const {createSnippet, updateSnippet, getSnippets, deleteSnippet} = snippetsSlice.actions
 export default snippetsSlice.reducer

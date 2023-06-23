@@ -6,7 +6,7 @@ import CodemirrorField from '../CodemirrorField';
 import SnippetDescriptionField from './SnippetDescriptionField';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { createSnippetSnippet, updateSnippet } from '../../app/features/snippetsSlice';
+import { createSnippet, deleteSnippet, updateSnippet } from '../../app/features/snippetsSlice';
 
 const SnippetCRUD = () => {
   const { id } = useParams(); // if we have it we got it
@@ -90,6 +90,14 @@ const SnippetCRUD = () => {
       navigate('/');
     }
   };
+  const handleDelete = () => {
+    if (id) {
+      dispatch(deleteSnippet(id));
+      navigate('/snippets');
+    } else {
+      navigate('/snippets');
+    }
+  };
 
   return (
     <div id="SnippetWrapper">
@@ -113,7 +121,9 @@ const SnippetCRUD = () => {
         <button className="dark_gray_button" onClick={() => handleConfirm()}>
           Confirm
         </button>
-        <button className={styles.delete_button}>Delete</button>
+        <button className={styles.delete_button} onClick={() => handleDelete()}>
+          Delete
+        </button>
       </div>
       {validation && <span className="error_report"> Fill in even title and description!</span>}
 
