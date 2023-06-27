@@ -1,7 +1,7 @@
-interface ITags {
+export interface ITags {
     [index: number]: string; // its literally an onject, indexed by numbers. 
 }
-interface IImages {
+export interface IImages {
     [index: number]: string; // its literally an onject, indexed by numbers. 
 }
 
