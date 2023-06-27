@@ -4,12 +4,14 @@ import Snippets from './Snippets';
 import SnippetCRUD from './SnippetCRUD';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSnippets } from '../../app/features/snippetsSlice';
+import { checkAuth } from '../../app/features/AuthSlice';
+import { asyncGetSnippets } from '../../app/features/snippetsSlice';
 
 const Main = () => {
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getSnippets(JSON.parse(localStorage.getItem('snippetsState'))));
+    dispatch(checkAuth()); // if refreshToken is okay, it authorizating
   }, [dispatch]);
 
   return (
