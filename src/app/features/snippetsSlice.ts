@@ -1,9 +1,12 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ISnippet } from "../models/ISnippet"
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { IImages, ISnippet, ITags } from "../models/ISnippet"
 import { saveSnippetStateToLocalStorage } from "./localstorage";
+import SnippetsService from "../service/SnippetsService";
 
 export interface SliceState {
     snippets: ISnippet[];
+    pending: boolean;
+    error: any;
 }
 const initialState: SliceState = {
     snippets: [{
@@ -14,8 +17,20 @@ const initialState: SliceState = {
     "description": "Little description",
     "tags": ["Js", "HTML", "tag"],
     "hidden": false
-}]
+}],
+    pending: null,
+    error: null
+
 }
+
+export const asyncGetSnippets = createAsyncThunk(
+    'snippets/get',
+    async (credentials: {ownerId: string}) => {
+        const response = await SnippetsService.asyncGetSnippets(credentials.ownerId)
+        return response.data;
+    }
+)
+
 
 const snippetsSlice = createSlice({
     name: 'snippets',
@@ -54,6 +69,24 @@ const snippetsSlice = createSlice({
 
         }
         
+    },
+    extraReducers: (builder) => {
+        builder
+        .addCase(asyncGetSnippets.pending, (state) => {
+            state.pending = true;
+            state.error = null
+        })
+        .addCase(asyncGetSnippets.fulfilled, (state, action) => {
+            state.pending = false;
+            state.error = null;
+            state.snippets = action.payload.snippets
+        })
+        .addCase(asyncGetSnippets.rejected, (state, action) => {
+            state.pending = false;
+            state.error = action.error.message
+            console.log(state.error);
+            
+        })
     }
 })
 
