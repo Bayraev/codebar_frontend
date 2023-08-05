@@ -3,6 +3,7 @@ import { AxiosResponse } from "axios"; // container of response
 import { AuthResponse } from "../models/response/AuthResponse";
 
 //! add trycatch
+//? learn syntaxis better
 export default class AuthService {
     // in promise we have generic which contains interface of what we will got from server
     static async login(email: string, password: string): Promise<AxiosResponse<AuthResponse>> { 

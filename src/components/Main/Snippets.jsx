@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 const Snippets = () => {
-  const { snippets } = useSelector((state) => state.snippets);
+  const { snippets } = useSelector((state) => state.snippets); //* async snippets fetching in Main.jsx
   // states
   const [selectedTags, setSelectedTags] = useState([]);
   const [seeTagsWindow, setSeeTagsWindow] = useState(false); // tags window ui
