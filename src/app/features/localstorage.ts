@@ -1,12 +1,15 @@
+import { useSelector } from "react-redux";
 import { SliceState } from "./snippetsSlice";
+import { RootState } from "../store";
 
-// it accepts whole snippet state 
+const isAuth: boolean = useSelector((state: RootState) => state.authorization.isAuth);
+
+// it accepts whole all snippet state to localstorage state under "snippetsState" key
 export const saveSnippetStateToLocalStorage = (state: SliceState) => {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('snippetsState', serializedState);
-
-    console.log(JSON.parse(localStorage.getItem('snippetsState')));
+    // console.log(JSON.parse(localStorage.getItem('snippetsState'))); //* эта тема парсит восстановленный из лс строку в жс объект, потом логирует
     
     
   } catch (error) {
@@ -14,6 +17,10 @@ export const saveSnippetStateToLocalStorage = (state: SliceState) => {
     console.error('Error saving state to localStorage: ', error);
   }
 };
+
+export const saveFromLStoDB = () => {
+  
+}
 
 export const clearLocalStorage = () => {
   try {
