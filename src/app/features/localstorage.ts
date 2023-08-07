@@ -1,8 +1,4 @@
-import { useSelector } from "react-redux";
 import { SliceState } from "./snippetsSlice";
-import { RootState } from "../store";
-
-const isAuth: boolean = useSelector((state: RootState) => state.authorization.isAuth);
 
 // it accepts whole all snippet state to localstorage state under "snippetsState" key
 export const saveSnippetStateToLocalStorage = (state: SliceState) => {
