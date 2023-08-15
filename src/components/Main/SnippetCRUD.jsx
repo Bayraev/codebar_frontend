@@ -6,7 +6,12 @@ import CodemirrorField from '../CodemirrorField';
 import SnippetDescriptionField from './SnippetDescriptionField';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { createSnippet, deleteSnippet, updateSnippet } from '../../app/features/snippetsSlice';
+import {
+  asyncNewSnippet,
+  createSnippet,
+  deleteSnippet,
+  updateSnippet,
+} from '../../app/features/snippetsSlice';
 
 const SnippetCRUD = () => {
   const { id } = useParams(); // if we have it we got it
@@ -21,7 +26,8 @@ const SnippetCRUD = () => {
   const [tag, setTag] = useState('');
   const [validation, setValidation] = useState(false); // Fill in required fields!
 
-  const snippets = useSelector((state) => state.snippets.snippets); // array
+  // useSelectors
+  const snippets = useSelector((state) => state.snippets.snippets); // array of snippets
 
   // getting data from store about snippet.uniqIdнннн
   useEffect(() => {
@@ -87,6 +93,7 @@ const SnippetCRUD = () => {
         image: [],
       };
       dispatch(createSnippet(arr));
+      dispatch(asyncNewSnippet(arr));
       navigate('/');
     }
   };
@@ -125,7 +132,7 @@ const SnippetCRUD = () => {
           Delete
         </button>
       </div>
-      {validation && <span className="error_report"> Fill in even title and description!</span>}
+      {validation && <span className="error_report"> Fill in all placeholders pls!</span>}
 
       <SnippetDescriptionField
         styles={styles}
