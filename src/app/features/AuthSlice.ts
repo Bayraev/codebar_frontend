@@ -25,7 +25,7 @@ const initialState: AuthState = {
 export const registration = createAsyncThunk(
   'auth/registration', // Unique identifier for this action
   async (credentials: { email: string; password: string }) => { // credetials contains that object
-    const response = await AuthService.registration(credentials.email, credentials.password);
+    const response = await AuthService.registration(credentials.email.toLowerCase(), credentials.password);
     return response.data; // Return the data from the API response
   }
 );
@@ -34,7 +34,7 @@ export const registration = createAsyncThunk(
 export const login = createAsyncThunk(
   'auth/login',
   async (credentials: { email: string; password: string }) => {
-    const response = await AuthService.login(credentials.email, credentials.password);
+    const response = await AuthService.login(credentials.email.toLowerCase(), credentials.password);
     return response.data; // accessToken, refreshToken, user 
   }
 );
