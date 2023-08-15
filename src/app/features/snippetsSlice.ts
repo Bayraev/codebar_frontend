@@ -1,13 +1,16 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IImages, ISnippet, ITags } from "../models/ISnippet"
+import { ISnippetObj, ISnippetsArr, ITags } from "../models/ISnippet"
 import { saveSnippetStateToLocalStorage } from "./localstorage";
 import SnippetsService from "../service/SnippetsService";
+import { RootState } from '../store'
 
 export interface SliceState {
-    snippets: ISnippet[];
+    snippets: ISnippetsArr[];
     pending: boolean;
     error: any;
+    isSentToDB?: boolean;
 }
+
 const initialState: SliceState = {
     snippets: [{
     "ownerId": null, 
@@ -19,15 +22,25 @@ const initialState: SliceState = {
     "hidden": false
 }],
     pending: null,
-    error: null
+    error: null,
+    isSentToDB: null,
 
 }
+
 
 export const asyncGetSnippets = createAsyncThunk(
     'snippets/get',
     async (credentials: {ownerId: string}) => {
         const response = await SnippetsService.asyncGetSnippets(credentials.ownerId)
         return response.data;
+    }
+)
+
+export const asyncNewSnippet = createAsyncThunk(
+    'snippets/post',
+    async (snippet: ISnippetObj) => {
+        const response = await SnippetsService.asyncNewSnippet(snippet)
+        return response.data
     }
 )
 
@@ -46,13 +59,15 @@ const snippetsSlice = createSlice({
             }
             
         },
-        createSnippet: (state, action: PayloadAction<ISnippet>) => {
+        createSnippet: (state, action: PayloadAction<ISnippetsArr>) => {
             const snippet = action.payload // obj
             
-            state.snippets.push(snippet) 
+            state.snippets.push(snippet)
             saveSnippetStateToLocalStorage(state )
+
+            
         },
-        updateSnippet: (state, action: PayloadAction<ISnippet>) => {
+        updateSnippet: (state, action: PayloadAction<ISnippetsArr>) => {
             
             const snippetIndex = state.snippets.findIndex(snippet => action.payload.uniqId === snippet.uniqId); // getting index
             
@@ -86,6 +101,26 @@ const snippetsSlice = createSlice({
             state.error = action.error.message
             console.log(state.error);
             
+        })
+
+        // new Snippet
+        .addCase(asyncNewSnippet.pending, (state, action) => {
+            state.pending = true;
+            state.error = null;
+            state.isSentToDB = null;
+        })
+        .addCase(asyncNewSnippet.fulfilled, (state, action) => {
+            state.pending = false;
+            state.error = null;
+            state.isSentToDB = true;                
+            setTimeout(() => {
+                state.isSentToDB = null;
+            }, 3000);
+        })
+        .addCase(asyncNewSnippet.rejected, (state, action) => {
+            state.pending = true;
+            state.error = true;
+            state.isSentToDB = false
         })
     }
 })
