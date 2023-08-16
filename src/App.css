@@ -15,7 +15,6 @@
 
 /* Some global style which possible to be */
 
-
 .dark_gray_button {
   font-size: 20px;
   background: #4e4e4e;
@@ -32,14 +31,19 @@
   transform: scale(1.05);
 }
 
+.SnippetCRUD_delete_button__lmy9a:hover {
+  transform: scale(1.05);
+}
+
 input {
+  font-family: "Kreon", serif;
   outline: none;
   font-size: 30px;
   padding-left: 10px;
   width: 60%;
   height: 40px;
   border: 0px solid;
-  background: #f3f3f3;
+  background: #434343;
   border-radius: 7px;
   margin-right: 10px;
   /* 
