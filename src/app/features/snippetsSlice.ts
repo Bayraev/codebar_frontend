@@ -112,10 +112,13 @@ const snippetsSlice = createSlice({
         .addCase(asyncNewSnippet.fulfilled, (state, action) => {
             state.pending = false;
             state.error = null;
-            state.isSentToDB = true;                
-            setTimeout(() => {
-                state.isSentToDB = null;
-            }, 3000);
+            //! Im not sure we need it 
+            // state.isSentToDB = true;                
+            // console.log('Sent to bd');
+            // setTimeout(() => {
+            //     state.isSentToDB = null;
+                
+            // }, 3000);
         })
         .addCase(asyncNewSnippet.rejected, (state, action) => {
             state.pending = true;
