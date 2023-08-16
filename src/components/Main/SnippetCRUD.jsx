@@ -14,7 +14,8 @@ import {
 } from '../../app/features/snippetsSlice';
 
 const SnippetCRUD = () => {
-  const { id } = useParams(); // if we have it we got it
+  const { id } = useParams(); // It is id of snippet
+  const userId = useSelector((state) => state.authorization.user.id);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -71,6 +72,7 @@ const SnippetCRUD = () => {
       // RUD
       const arr = {
         uniqId: id,
+        ownerId: userId,
         title,
         snippet,
         description,
@@ -85,6 +87,7 @@ const SnippetCRUD = () => {
       const newId = generateRandomString(20, title);
       const arr = {
         uniqId: newId,
+        ownerId: userId,
         title,
         snippet,
         description,
@@ -97,6 +100,7 @@ const SnippetCRUD = () => {
       navigate('/');
     }
   };
+
   const handleDelete = () => {
     if (id) {
       dispatch(deleteSnippet(id));
