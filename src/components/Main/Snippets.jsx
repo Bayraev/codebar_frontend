@@ -1,16 +1,16 @@
-import React from 'react';
-import styles from './Snippets.module.scss';
-import sort_icon from '../../assets/images/settings_icon.png';
-import search_icon from '../../assets/images/search_icon.png';
-import { Link, useNavigate } from 'react-router-dom';
-import { useState, useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React from "react";
+import styles from "./Snippets.module.scss";
+import sort_icon from "../../assets/images/settings_icon.png";
+import search_icon from "../../assets/images/search_icon.png";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
 const Snippets = () => {
   const { snippets } = useSelector((state) => state.snippets); //* async snippets fetching in Main.jsx
   // states
   const [selectedTags, setSelectedTags] = useState([]);
   const [seeTagsWindow, setSeeTagsWindow] = useState(false); // tags window ui
-  const [_, setSearch] = useState(''); // live searching
+  const [_, setSearch] = useState(""); // live searching
   const [fileredSnippets, setFilteredSnippets] = useState(snippets); // thats what we render like everytime
   // preparing all tags which exist for tags-list-window
   const tagsForTagsWindow = [];
@@ -27,7 +27,7 @@ const Snippets = () => {
   });
   useEffect(() => {
     setFilteredSnippets(snippets);
-    setSearch('');
+    setSearch("");
   }, [snippets]);
 
   //* Work with redux-toolkit
@@ -51,7 +51,10 @@ const Snippets = () => {
     // This function handles the outside click event.
     const handleOutsideClick = (event) => {
       // Check if the refTagsWindow is defined and if the clicked element is not inside the refTagsWindow.
-      if (refTagsWindow.current && !refTagsWindow.current.contains(event.target)) {
+      if (
+        refTagsWindow.current &&
+        !refTagsWindow.current.contains(event.target)
+      ) {
         // If the conditions are met, we set the seeTagsWindow state to false to close the tags window.
         setSeeTagsWindow(false);
       }
@@ -59,26 +62,28 @@ const Snippets = () => {
 
     // When seeTagsWindow is true, we add the event listener for mousedown on the document.
     if (seeTagsWindow) {
-      document.addEventListener('mousedown', handleOutsideClick);
+      document.addEventListener("mousedown", handleOutsideClick);
     }
 
     // The return statement in useEffect is used for cleanup.
     // It removes the event listener when the component is unmounted or when the seeTagsWindow value changes.
     return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [seeTagsWindow]);
 
   // Filter by tags.
   const handleTagClick = (tag) => {
     if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter((selectedTag) => selectedTag !== tag));
+      setSelectedTags(
+        selectedTags.filter((selectedTag) => selectedTag !== tag)
+      );
     } else {
       setSelectedTags([...selectedTags, tag]);
     }
     // Фильтрация объектов на основе выбранных тегов
     const filteredStates = fileredSnippets.filter((snippet) =>
-      selectedTags.every((selectedTag) => snippet.tags.includes(selectedTag)),
+      selectedTags.every((selectedTag) => snippet.tags.includes(selectedTag))
     );
     setFilteredSnippets(filteredStates);
   };
@@ -86,8 +91,12 @@ const Snippets = () => {
   return (
     <div className={styles.snippets_wrapper}>
       <div className={styles.flex}>
-        <img onClick={() => setSeeTagsWindow(true)} className={styles.icon50x50} src={sort_icon} />
-        <img className={styles.icon50x50} src={search_icon} />
+        <img
+          onClick={() => setSeeTagsWindow(true)}
+          className={styles.icon50x50}
+          src={sort_icon}
+        />
+        {/* <img className={styles.icon50x50} src={search_icon} /> */}
       </div>
 
       <form>
@@ -109,8 +118,11 @@ const Snippets = () => {
               <span
                 key={tag}
                 onClick={() => handleTagClick(tag)}
-                className={selectedTags.includes(tag) ? styles.selected_tag : ''}>
-                {tag},{'  '}
+                className={
+                  selectedTags.includes(tag) ? styles.selected_tag : ""
+                }
+              >
+                {tag},{"  "}
               </span>
             ))}
           </div>
@@ -120,13 +132,17 @@ const Snippets = () => {
       <div className={styles.rendering_div}>
         {fileredSnippets.map((e, i) => {
           return (
-            <div className={styles.rendered_item} key={i} onClick={() => handleEdit(e.uniqId)}>
+            <div
+              className={styles.rendered_item}
+              key={i}
+              onClick={() => handleEdit(e.uniqId)}
+            >
               <div className={styles.description}>
                 <h3>{e.title}</h3>
                 <span>{e.description}</span>
               </div>
               <div className={styles.tags_and_codepopup}>
-                <span>{e.tags.map((e) => e + ' ')}</span>
+                <span>{e.tags.map((e) => e + " ")}</span>
               </div>
             </div>
           );
