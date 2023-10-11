@@ -55,6 +55,7 @@ export const checkAuth = createAsyncThunk(
   async() => {
     // here we dont use our interceptors cuz we have not big deal with it.
     // using 'withCredentials' to send cookies automatically to back
+    // PUT IT IN AuthService 
     const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {withCredentials: true})
     return response.data
   }
