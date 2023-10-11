@@ -6,19 +6,10 @@ export interface IImages {
 }
 
 // for obj
-export interface ISnippetObj {
-    ownerId?: string;
-    uniqId: string;
-    title: string;
-    snippet: string;
-    description: string
-    hidden?: boolean;
-    tags?: ITags[];
-    image?: IImages[];
-}
 
-// for arr
-export interface ISnippetsArr{
+export interface ISnippets{
+    __v?: number;
+    _id?: string; 
     ownerId?: string;
     uniqId: string;
     title: string;

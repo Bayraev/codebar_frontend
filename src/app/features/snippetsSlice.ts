@@ -1,11 +1,11 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ISnippetObj, ISnippetsArr, ITags } from "../models/ISnippet"
+import { ISnippets, ITags } from "../models/ISnippet"
 import { saveSnippetStateToLocalStorage } from "./localstorage";
 import SnippetsService from "../service/SnippetsService";
 import { RootState } from '../store'
 
 export interface SliceState {
-    snippets: ISnippetsArr[];
+    snippets: ISnippets[];
     pending: boolean;
     error: any;
     isSentToDB?: boolean;
@@ -38,7 +38,7 @@ export const asyncGetSnippets = createAsyncThunk(
 
 export const asyncNewSnippet = createAsyncThunk(
     'snippets/post',
-    async (snippet: ISnippetObj) => {
+    async (snippet: ISnippets) => {
         const response = await SnippetsService.asyncNewSnippet(snippet)
         return response.data
     }
@@ -59,7 +59,7 @@ const snippetsSlice = createSlice({
             }
             
         },
-        createSnippet: (state, action: PayloadAction<ISnippetsArr>) => {
+        createSnippet: (state, action: PayloadAction<ISnippets>) => {
             const snippet = action.payload // obj
             
             state.snippets.push(snippet)
@@ -67,7 +67,7 @@ const snippetsSlice = createSlice({
 
             
         },
-        updateSnippet: (state, action: PayloadAction<ISnippetsArr>) => {
+        updateSnippet: (state, action: PayloadAction<ISnippets>) => {
             
             const snippetIndex = state.snippets.findIndex(snippet => action.payload.uniqId === snippet.uniqId); // getting index
             

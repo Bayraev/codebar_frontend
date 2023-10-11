@@ -1,16 +1,17 @@
 import $api from "../http/http";
 import { AxiosResponse } from "axios";
-import { ISnippetObj, ISnippetsArr } from "../models/ISnippet";
+import { ISnippets } from "../models/ISnippet";
 
-interface ISnippets {
-    snippets: ISnippetsArr[]
-}
+
 export default class SnippetsService {
     static async asyncGetSnippets(ownerId: string): Promise<AxiosResponse<ISnippets>> {
-        return $api.get<ISnippets>(`/snippets/`+ownerId)
+        const random = Math.random()
+        console.log(random);
+        
+        return $api.get<ISnippets>(`/snippets/`+ownerId+`?random=${random}`)
     }
     // next static sents request to create new snippet in DB, sending snippet with interface ISnippetObj
-    static async asyncNewSnippet(snippet: ISnippetObj): Promise<AxiosResponse<ISnippets>> {
+    static async asyncNewSnippet(snippet: ISnippets): Promise<AxiosResponse<ISnippets>> {
         return $api.post<ISnippets>('/new_snippet', snippet)
     }
 }
