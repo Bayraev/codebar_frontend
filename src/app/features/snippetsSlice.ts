@@ -95,7 +95,11 @@ const snippetsSlice = createSlice({
             state.pending = false;
             state.error = null;
             const arr = Object.values(action.payload); 
-            state.snippets = arr
+
+            arr.map(snippet => {
+                state.snippets.push(snippet)
+            })
+
         })
         .addCase(asyncGetSnippets.rejected, (state, action) => {
             state.pending = false;

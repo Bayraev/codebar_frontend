@@ -4,27 +4,42 @@ import sort_icon from '../../assets/images/settings_icon.png';
 import search_icon from '../../assets/images/search_icon.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { asyncGetSnippets } from '../../app/features/snippetsSlice';
 const Snippets = () => {
+  const dispatch = useDispatch();
+  const userId = useSelector((state) => state.authorization.user.id); // if authorizated, its not null.
   const { snippets } = useSelector((state) => state.snippets); //* async snippets fetching in Main.jsx
+
   // states
   const [selectedTags, setSelectedTags] = useState([]);
   const [seeTagsWindow, setSeeTagsWindow] = useState(false); // tags window ui
   const [_, setSearch] = useState(''); // live searching
-  const [fileredSnippets, setFilteredSnippets] = useState(snippets); // thats what we render like everytime
+  const [filteredSnippets, setFilteredSnippets] = useState(snippets); // thats what we render like everytime
   // preparing all tags which exist for tags-list-window
   const tagsForTagsWindow = [];
 
   const navigate = useNavigate();
 
+  // Dispatching snippets from backend.
+  useEffect(() => {
+    if (userId) {
+      dispatch(asyncGetSnippets({ ownerId: userId }));
+    }
+    // const refreshToken = localStorage.getItem('token');
+    // console.log(refreshToken);
+
+    // filter tags of snippets
+    // snippets.map((snippet) => {
+    //   snippet.tags.map((tag) => {
+    //     if (!tagsForTagsWindow.includes(tag)) {
+    //       tagsForTagsWindow.push(tag);
+    //     }
+    //   });
+    // });
+  }, [userId, dispatch]);
+
   // functions
-  snippets.map((snippet) => {
-    snippet.tags.map((tag) => {
-      if (!tagsForTagsWindow.includes(tag)) {
-        tagsForTagsWindow.push(tag);
-      }
-    });
-  });
   useEffect(() => {
     setFilteredSnippets(snippets);
     setSearch('');
@@ -77,7 +92,7 @@ const Snippets = () => {
       setSelectedTags([...selectedTags, tag]);
     }
     // Фильтрация объектов на основе выбранных тегов
-    const filteredStates = fileredSnippets.filter((snippet) =>
+    const filteredStates = filteredSnippets.filter((snippet) =>
       selectedTags.every((selectedTag) => snippet.tags.includes(selectedTag)),
     );
     setFilteredSnippets(filteredStates);
@@ -118,7 +133,7 @@ const Snippets = () => {
       )}
 
       <div className={styles.rendering_div}>
-        {fileredSnippets.map((e, i) => {
+        {filteredSnippets.map((e, i) => {
           return (
             <div className={styles.rendered_item} key={i} onClick={() => handleEdit(e.uniqId)}>
               <div className={styles.description}>
