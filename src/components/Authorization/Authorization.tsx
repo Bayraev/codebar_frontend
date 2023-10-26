@@ -1,9 +1,10 @@
 import React, { useRef, useState } from 'react';
 import styles from './Authorization.module.scss';
-import { login, registration } from '../../app/features/AuthSlice';
+import { login, registration, switchAuthWindowOpened } from '../../app/features/AuthSlice';
 import { AppDispatch } from '../../app/store';
 import { useDispatch } from 'react-redux';
 
+//* if you look for logout, check it in  src\components\Header\Header.jsx
 
 function Authorization(): JSX.Element {
   const dispatch: AppDispatch = useDispatch()
@@ -62,8 +63,8 @@ function Authorization(): JSX.Element {
       return;
     }
 
-    dispatch(registration({email, password}))
-    
+    dispatch(registration({email, password}));
+    dispatch(switchAuthWindowOpened());
   }
   
   const handleSignInSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -93,8 +94,8 @@ function Authorization(): JSX.Element {
     }
 
     
-    console.log('Everything working in sign IN yet.');
-    dispatch(login({email, password}))
+    dispatch(login({email, password}));
+    dispatch(switchAuthWindowOpened());
   }
 
 
