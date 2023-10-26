@@ -11,6 +11,7 @@ interface AuthState {
   error: string | null;
   user: IUser;
   isAuth: boolean;
+  authWindowOpened: boolean;
 }
 
 const initialState: AuthState = {
@@ -22,6 +23,7 @@ const initialState: AuthState = {
     isActivated: null
   },
   isAuth: false,
+  authWindowOpened: false
 };
 
 
@@ -64,7 +66,11 @@ export const checkAuth = createAsyncThunk(
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    switchAuthWindowOpened: (state) => {
+      state.authWindowOpened = !state.authWindowOpened
+    }
+  },
   extraReducers: (builder) => {
     builder
     // registration
@@ -135,4 +141,5 @@ export const authSlice = createSlice({
   },
 });
 
+export const {switchAuthWindowOpened} = authSlice.actions
 export default authSlice.reducer;
