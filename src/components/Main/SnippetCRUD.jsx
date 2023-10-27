@@ -33,6 +33,9 @@ const SnippetCRUD = () => {
   // getting data from store about snippet.uniqIdнннн
   useEffect(() => {
     if (id) {
+      // when we click on snippet in the interface, as you can see above we
+      // also put its id in parameters (link), then we get it in "id" variable.
+      // so now we compare it with snippets in db with the same id (its title in db is uniqId)
       const selectedSnippet = snippets.find((snippet) => snippet.uniqId === id);
       const { snippet, title, description, tags, hidden } = selectedSnippet;
       setSnippet(snippet);
