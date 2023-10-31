@@ -12,15 +12,7 @@ export interface SliceState {
 }
 
 const initialState: SliceState = {
-    snippets: [{
-    "ownerId": null, 
-    "uniqId": 'owjd238hdhn298dn2i39ubfn3',
-    "title": "text",
-    "snippet": "<h> Hello World!</h>",
-    "description": "Little description",
-    "tags": ["Js", "HTML", "tag"],
-    "hidden": false
-}],
+    snippets: [],
     pending: null,
     error: null,
     isSentToDB: null,
@@ -40,6 +32,16 @@ export const asyncNewSnippet = createAsyncThunk(
     'snippets/post',
     async (snippet: ISnippets) => {
         const response = await SnippetsService.asyncNewSnippet(snippet)
+        return response.data
+    }
+)
+
+export const asyncDeleteSnippet = createAsyncThunk(
+    'snippets/delete',
+    async (_id: string) => {
+        const response = await SnippetsService.asyncDeleteSnippet(_id)
+        console.log('responce.data', response.data);
+        console.log('just responce', response);
         return response.data
     }
 )
