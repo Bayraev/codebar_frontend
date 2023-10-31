@@ -135,7 +135,7 @@ const Snippets = () => {
       <div className={styles.rendering_div}>
         {filteredSnippets.map((e, i) => {
           return (
-            <div className={styles.rendered_item} key={i} onClick={() => handleEdit(e.uniqId)}>
+            <div className={styles.rendered_item} key={i} onClick={() => handleEdit(e._id)}>
               <div className={styles.description}>
                 <h3>{e.title}</h3>
                 <span>{e.description}</span>
