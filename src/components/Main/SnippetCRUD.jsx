@@ -7,6 +7,7 @@ import SnippetDescriptionField from './SnippetDescriptionField';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
+  asyncDeleteSnippet,
   asyncNewSnippet,
   createSnippet,
   deleteSnippet,
@@ -14,7 +15,7 @@ import {
 } from '../../app/features/snippetsSlice';
 
 const SnippetCRUD = () => {
-  const { id } = useParams(); // It is id of snippet
+  const { id } = useParams(); // It is _id of snippet
   const userId = useSelector((state) => state.authorization.user.id);
 
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const SnippetCRUD = () => {
       // when we click on snippet in the interface, as you can see above we
       // also put its id in parameters (link), then we get it in "id" variable.
       // so now we compare it with snippets in db with the same id (its title in db is uniqId)
-      const selectedSnippet = snippets.find((snippet) => snippet.uniqId === id);
+      const selectedSnippet = snippets.find((snippet) => snippet._id === id);
       const { snippet, title, description, tags, hidden } = selectedSnippet;
       setSnippet(snippet);
       setTitle(title);
@@ -106,9 +107,12 @@ const SnippetCRUD = () => {
 
   const handleDelete = () => {
     if (id) {
+      console.log(id);
       dispatch(deleteSnippet(id));
+      dispatch(asyncDeleteSnippet(id));
       navigate('/snippets');
     } else {
+      dispatch(deleteSnippet(id));
       navigate('/snippets');
     }
   };
