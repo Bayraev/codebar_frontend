@@ -7,8 +7,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { asyncGetSnippets } from '../../app/features/snippetsSlice';
 const Snippets = ({ userId }) => {
-  const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const { snippets } = useSelector((state) => state.snippets); //* async snippets fetching in Main.jsx
 
   // states
@@ -17,11 +16,10 @@ const Snippets = ({ userId }) => {
   const [_, setSearch] = useState(''); // live searching
   const [filteredSnippets, setFilteredSnippets] = useState(snippets); // thats what we render like everytime
   // preparing all tags which exist for tags-list-window
-  const tagsForTagsWindow = [];
-
-  const navigate = useNavigate();
+  const [tagsForTagsWindow, setTagsForTagsWindow] = useState([]);
 
   // functions
+  // This function clears searchbar and updated array of filtererd snippets (Which is rendering all time)
   useEffect(() => {
     setFilteredSnippets(snippets);
     setSearch('');
@@ -35,9 +33,15 @@ const Snippets = ({ userId }) => {
   // dynamic searching by title and tags
   const handleSearch = (value) => {
     setSearch(value);
+
     const newArray = snippets.filter((e) => {
-      return e.title.toLowerCase().includes(value.toLowerCase());
+      const lowerCaseValue = value.toLowerCase();
+      return (
+        e.title.toLowerCase().includes(lowerCaseValue) ||
+        e.tags.some((tag) => tag.toLowerCase().includes(lowerCaseValue))
+      );
     });
+
     setFilteredSnippets(newArray);
   };
 
@@ -66,25 +70,11 @@ const Snippets = ({ userId }) => {
     };
   }, [seeTagsWindow]);
 
-  // Filter by tags.
-  const handleTagClick = (tag) => {
-    if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter((selectedTag) => selectedTag !== tag));
-    } else {
-      setSelectedTags([...selectedTags, tag]);
-    }
-    // Фильтрация объектов на основе выбранных тегов
-    const filteredStates = filteredSnippets.filter((snippet) =>
-      selectedTags.every((selectedTag) => snippet.tags.includes(selectedTag)),
-    );
-    setFilteredSnippets(filteredStates);
-  };
-
   return (
     <div className={styles.snippets_wrapper}>
       <div className={styles.flex}>
-        <img onClick={() => setSeeTagsWindow(true)} className={styles.icon50x50} src={sort_icon} />
-        <img className={styles.icon50x50} src={search_icon} />
+        {/* <img onClick={() => setSeeTagsWindow(true)} className={styles.icon50x50} src={sort_icon} />
+        <img className={styles.icon50x50} src={search_icon} /> */}
       </div>
 
       <form>
@@ -98,21 +88,21 @@ const Snippets = ({ userId }) => {
         </Link>
       </form>
 
-      {seeTagsWindow && (
+      {/* {seeTagsWindow && (
         <div ref={refTagsWindow} className={styles.tags_window}>
           <span>Tags:</span>
           <div className={styles.tags_list}>
             {tagsForTagsWindow.map((tag) => (
               <span
                 key={tag}
-                onClick={() => handleTagClick(tag)}
+                onClick={() => handleSearch(null, tag)}
                 className={selectedTags.includes(tag) ? styles.selected_tag : ''}>
                 {tag},{'  '}
               </span>
             ))}
           </div>
         </div>
-      )}
+      )} */}
 
       <div className={styles.rendering_div}>
         {filteredSnippets.map((e, i) => {

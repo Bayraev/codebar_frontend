@@ -17,17 +17,6 @@ const Main = () => {
       console.log('sjkand');
       dispatch(asyncGetSnippets({ ownerId: userId }));
     }
-    // const refreshToken = localStorage.getItem('token');
-    // console.log(refreshToken);
-
-    // filter tags of snippets
-    // snippets.map((snippet) => {
-    //   snippet.tags.map((tag) => {
-    //     if (!tagsForTagsWindow.includes(tag)) {
-    //       tagsForTagsWindow.push(tag);
-    //     }
-    //   });
-    // });
   }, [userId, dispatch]);
 
   useEffect(() => {
