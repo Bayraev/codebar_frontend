@@ -6,9 +6,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { asyncGetSnippets } from '../../app/features/snippetsSlice';
-const Snippets = () => {
+const Snippets = ({ userId }) => {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.authorization.user.id); // if authorizated, its not null.
+
   const { snippets } = useSelector((state) => state.snippets); //* async snippets fetching in Main.jsx
 
   // states
@@ -20,24 +20,6 @@ const Snippets = () => {
   const tagsForTagsWindow = [];
 
   const navigate = useNavigate();
-
-  // Dispatching snippets from backend.
-  useEffect(() => {
-    if (userId) {
-      dispatch(asyncGetSnippets({ ownerId: userId }));
-    }
-    // const refreshToken = localStorage.getItem('token');
-    // console.log(refreshToken);
-
-    // filter tags of snippets
-    // snippets.map((snippet) => {
-    //   snippet.tags.map((tag) => {
-    //     if (!tagsForTagsWindow.includes(tag)) {
-    //       tagsForTagsWindow.push(tag);
-    //     }
-    //   });
-    // });
-  }, [userId, dispatch]);
 
   // functions
   useEffect(() => {

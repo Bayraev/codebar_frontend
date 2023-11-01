@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   asyncDeleteSnippet,
   asyncNewSnippet,
+  asyncUpdateSnippet,
   createSnippet,
   deleteSnippet,
   updateSnippet,
@@ -73,9 +74,9 @@ const SnippetCRUD = () => {
     }
 
     if (id) {
-      // RUD
+      // If we have id of snippet (it means it exist and we can RUD it)
       const arr = {
-        uniqId: id,
+        _id: id,
         ownerId: userId,
         title,
         snippet,
@@ -84,11 +85,13 @@ const SnippetCRUD = () => {
         tags,
         image: [],
       };
-      dispatch(updateSnippet(arr));
+      {
+        userId ? dispatch(asyncUpdateSnippet(arr)) : dispatch(updateSnippet(arr));
+      }
       navigate('/');
     } else {
-      // CRUD
-      const newId = generateRandomString(20, title);
+      // if there is no existing id of snippet (it means we only Creating snippet rn)
+      const newId = generateRandomString(20, title); //! why?
       const arr = {
         uniqId: newId,
         ownerId: userId,
@@ -99,15 +102,17 @@ const SnippetCRUD = () => {
         tags,
         image: [],
       };
-      dispatch(createSnippet(arr));
-      dispatch(asyncNewSnippet(arr));
+
+      {
+        userId ? dispatch(asyncNewSnippet(arr)) : dispatch(createSnippet(arr));
+      }
+
       navigate('/');
     }
   };
 
   const handleDelete = () => {
     if (id) {
-      console.log(id);
       dispatch(deleteSnippet(id));
       dispatch(asyncDeleteSnippet(id));
       navigate('/snippets');

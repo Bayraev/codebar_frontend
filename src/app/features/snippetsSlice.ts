@@ -40,8 +40,16 @@ export const asyncDeleteSnippet = createAsyncThunk(
     'snippets/delete',
     async (_id: string) => {
         const response = await SnippetsService.asyncDeleteSnippet(_id)
-        console.log('responce.data', response.data);
-        console.log('just responce', response);
+        return response.data
+    }
+)
+
+export const asyncUpdateSnippet = createAsyncThunk(
+    'snippets/update',
+    async (snippet: ISnippets)=> {
+        console.log(snippet);
+        
+        const response = await SnippetsService.asyncUpdateSnippet(snippet)
         return response.data
     }
 )
@@ -79,9 +87,7 @@ const snippetsSlice = createSlice({
         },
         deleteSnippet: (state, action: PayloadAction<string>) => {
             // const snippetIndex = state.snippets.findIndex(snippet => action.payload === snippet.uniqId);
-            console.log(action.payload);
-            
-            const filteredSnippets = state.snippets.filter(snippet => snippet.uniqId !== action.payload)
+            const filteredSnippets = state.snippets.filter(snippet => snippet._id !== action.payload)
             state.snippets = filteredSnippets
 
         }
@@ -111,7 +117,7 @@ const snippetsSlice = createSlice({
         })
 
         // new Snippet
-        .addCase(asyncNewSnippet.pending, (state, action) => {
+        .addCase(asyncNewSnippet.pending, (state) => {
             state.pending = true;
             state.error = null;
             state.isSentToDB = null;
@@ -119,18 +125,41 @@ const snippetsSlice = createSlice({
         .addCase(asyncNewSnippet.fulfilled, (state, action) => {
             state.pending = false;
             state.error = null;
-            //! Im not sure we need it 
-            // state.isSentToDB = true;                
-            // console.log('Sent to bd');
-            // setTimeout(() => {
-            //     state.isSentToDB = null;
-                
-            // }, 3000);
+            state.snippets.push(action.payload)
         })
-        .addCase(asyncNewSnippet.rejected, (state, action) => {
-            state.pending = true;
+        .addCase(asyncNewSnippet.rejected, (state) => {
+            state.pending = false;
             state.error = true;
             state.isSentToDB = false
+            setTimeout(() => {
+                state.isSentToDB = null
+            }, 5000);
+        })
+
+        // delete snippet
+
+
+
+        // update snippet
+        .addCase(asyncUpdateSnippet.pending, (state) => {
+            state.pending = true;
+            state.error = null;
+        })
+        .addCase(asyncUpdateSnippet.fulfilled, (state, action) => {
+            state.pending = false;
+            state.error = null;
+            
+            const snippetIndex = state.snippets.findIndex(snippet => action.payload._id === snippet._id); // getting index
+            console.log(action.payload);
+            
+            if (snippetIndex !== -1) {
+                state.snippets[snippetIndex] = action.payload;
+            }
+        })
+        .addCase(asyncUpdateSnippet.rejected, (state, action) =>  {
+            state.pending = false
+            state.error = true
+            
         })
     }
 })

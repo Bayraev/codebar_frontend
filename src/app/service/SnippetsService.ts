@@ -18,4 +18,10 @@ export default class SnippetsService {
     static async asyncDeleteSnippet(_id: string): Promise<AxiosResponse<void>> {
         return $api.delete(`/snippet/delete/${_id}`)
     }
+
+    static async asyncUpdateSnippet(snippet: ISnippets): Promise<AxiosResponse<ISnippets>> {
+        console.log(snippet._id);
+        
+        return $api.patch(`/snippet/patch/${snippet._id}`, snippet)
+    }
 }
