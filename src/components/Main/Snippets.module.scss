@@ -1,5 +1,8 @@
 .snippets_wrapper {
-
+    form {
+      display: flex;  
+      margin: 35px 0;
+    }
     .flex {
         position: relative;
         top: 40px;
@@ -12,11 +15,6 @@
         }
     }
 
-
-    form {
-        display: flex;
-        margin-bottom: 60px;
-    }
     
     .tags_window {
       position: absolute;
@@ -55,6 +53,7 @@
             padding: 0 35px 35px 35px;
             background-color: #4E4E4E;
             color: white;
+            border-radius: 3%;
           
             &::-webkit-scrollbar {
               width: 8px; //? Sets the width of the scrollbar
@@ -65,8 +64,12 @@
               background-color: white; //? Sets the color of the scrollbar thumb
               border-radius: 4px; //? Rounds the corners of the scrollbar thumb
             }
-          
-            .description {
+
+            :hover {
+              transform: scale(1);
+            }
+            
+           .description {
               h3 {
                 font-size: medium;
                 font-weight: 400;
@@ -82,18 +85,11 @@
                 line-height: 38px;
               }
             }
-          
             .tags_and_codepopup {
               padding-top: 10%;
-          
-              span {
-                // styles for tags
-              }
-          
-              // .code_popup {
-              //   align-items: end;
-              // }
             }
+          }:hover {
+            transform: scale(1.05);
           }
           
           
