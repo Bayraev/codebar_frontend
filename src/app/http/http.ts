@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const API_URL = `http://localhost:4000/api`;
+export const API_URL = `https://codebar-frontend.onrender.com/api`;
 
 const $api = axios.create({
   withCredentials: true, // it makes automatically connecting cookies to every request from client
