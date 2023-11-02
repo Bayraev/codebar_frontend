@@ -1,6 +1,6 @@
 import React from 'react';
 import CodeMirror from '@uiw/react-codemirror';
-import { loadLanguage, langNames, langs } from '@uiw/codemirror-extensions-langs';
+import { loadLanguage, langs } from '@uiw/codemirror-extensions-langs';
 import {
   //   materialDark,
   materialDarkInit,

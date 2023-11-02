@@ -1,8 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ISnippets, ITags } from "../models/ISnippet"
+import { ISnippets } from "../models/ISnippet"
 import { saveSnippetStateToLocalStorage } from "./localstorage";
 import SnippetsService from "../service/SnippetsService";
-import { RootState } from '../store'
 
 export interface SliceState {
     snippets: ISnippets[];
@@ -103,7 +102,8 @@ const snippetsSlice = createSlice({
             const arr = Object.values(action.payload); 
 
             arr.map(snippet => {
-                state.snippets.push(snippet)
+                return state.snippets.push(snippet)
+                
             })
 
         })

@@ -4,7 +4,7 @@ import './SnippetCRUD.scss';
 import styles from './SnippetCRUD.module.scss';
 import CodemirrorField from '../CodemirrorField';
 import SnippetDescriptionField from './SnippetDescriptionField';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   asyncDeleteSnippet,
@@ -44,8 +44,9 @@ const SnippetCRUD = () => {
       setTitle(title);
       setDescription(description);
       setTags(tags);
+      setHidden(hidden);
     }
-  }, []);
+  }, [id, snippets]);
 
   // For CRUDs
   const handleEnterTag = (e) => {
@@ -85,9 +86,8 @@ const SnippetCRUD = () => {
         tags,
         image: [],
       };
-      {
-        userId ? dispatch(asyncUpdateSnippet(arr)) : dispatch(updateSnippet(arr));
-      }
+
+      userId ? dispatch(asyncUpdateSnippet(arr)) : dispatch(updateSnippet(arr));
       navigate('/');
     } else {
       // if there is no existing id of snippet (it means we only Creating snippet rn)
@@ -103,10 +103,7 @@ const SnippetCRUD = () => {
         image: [],
       };
 
-      {
-        userId ? dispatch(asyncNewSnippet(arr)) : dispatch(createSnippet(arr));
-      }
-
+      userId ? dispatch(asyncNewSnippet(arr)) : dispatch(createSnippet(arr));
       navigate('/');
     }
   };

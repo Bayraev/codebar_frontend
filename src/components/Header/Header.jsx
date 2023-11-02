@@ -4,7 +4,6 @@ import login_icon from '../../assets/images/auth_icon.png';
 import logout_icon from '../../assets/images/logout_icon.png';
 import { Link } from 'react-router-dom';
 import Authorization from '../Authorization/Authorization.tsx';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, switchAuthWindowOpened } from '../../app/features/AuthSlice';
 
@@ -28,12 +27,18 @@ const Header = () => {
         </Link>
 
         {isAuth ? (
-          <img onClick={() => handleLogout()} className={styles.account_icon} src={logout_icon} />
+          <img
+            onClick={() => handleLogout()}
+            className={styles.account_icon}
+            src={logout_icon}
+            alt=""
+          />
         ) : (
           <img
             onClick={() => dispatch(switchAuthWindowOpened())}
             className={styles.account_icon}
             src={login_icon}
+            alt=""
           />
         )}
       </div>
