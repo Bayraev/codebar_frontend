@@ -6,7 +6,6 @@ import { ISnippets } from "../models/ISnippet";
 export default class SnippetsService {
     static async asyncGetSnippets(ownerId: string): Promise<AxiosResponse<ISnippets>> {
         const random = Math.random()
-        console.log(random);
         
         return $api.get<ISnippets>(`/snippets/`+ownerId+`?random=${random}`)
     }
@@ -20,7 +19,6 @@ export default class SnippetsService {
     }
 
     static async asyncUpdateSnippet(snippet: ISnippets): Promise<AxiosResponse<ISnippets>> {
-        console.log(snippet._id);
         
         return $api.patch(`/snippet/patch/${snippet._id}`, snippet)
     }

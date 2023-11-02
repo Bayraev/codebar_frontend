@@ -14,7 +14,6 @@ const Main = () => {
   // Dispatching snippets from backend.
   useEffect(() => {
     if (userId) {
-      console.log('sjkand');
       dispatch(asyncGetSnippets({ ownerId: userId }));
     }
   }, [userId, dispatch]);

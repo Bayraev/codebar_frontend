@@ -47,8 +47,6 @@ export const asyncDeleteSnippet = createAsyncThunk(
 export const asyncUpdateSnippet = createAsyncThunk(
     'snippets/update',
     async (snippet: ISnippets)=> {
-        console.log(snippet);
-        
         const response = await SnippetsService.asyncUpdateSnippet(snippet)
         return response.data
     }
@@ -150,7 +148,6 @@ const snippetsSlice = createSlice({
             state.error = null;
             
             const snippetIndex = state.snippets.findIndex(snippet => action.payload._id === snippet._id); // getting index
-            console.log(action.payload);
             
             if (snippetIndex !== -1) {
                 state.snippets[snippetIndex] = action.payload;
